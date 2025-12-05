@@ -7,10 +7,11 @@ function App() {
   const providerValues = {};
 
   return (
-    <div className='main'>
+    <div className='app'>
       <MyContext.Provider value = {providerValues}>
         <Sidebar></Sidebar>
-        <ChatWindow></ChatWindow>
+        <ChatWindow>
+        </ChatWindow>
       </MyContext.Provider>
     </div>
   )
