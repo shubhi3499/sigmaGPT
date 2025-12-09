@@ -9,6 +9,11 @@ function chat(){
     const [latestReply,setLatestReply] = useState(null);
 
     useEffect(()=>{
+        if(reply === null)
+        {
+            setLatestReply(null);
+            return;
+        }
         //latest reply seperate => typing effect 
         if(!prevChats?.length)
             return;
@@ -43,12 +48,38 @@ function chat(){
                         </div>
                     )
                 }
+
                 {
-                    prevChats.length > 0 && latestReply != null &&
+                    prevChats.length > 0 && (
+                        <>
+                            {
+                                latestReply === null ?(
+                                <div className='gptDiv' key={"non-typing"}>
+                                    <ReactMarkdown rehypePlugins={[rehypeHighlight]}>{prevChats[prevChats.length-1].content}</ReactMarkdown>
+                                </div>
+                            
+                            ):(
+                                <div className='gptDiv' key={"typing"}>
+                                <ReactMarkdown rehypePlugins={[rehypeHighlight]}>{latestReply}</ReactMarkdown>
+                                </div>
+                            )
+                            }
+                        </>
+                    )
+                }
+                {/* {
+                    prevChats.length > 0 && latestReply !== null &&
                     <div className='gptDiv' key={"typing"}>
                         <ReactMarkdown rehypePlugins={[rehypeHighlight]}>{latestReply}</ReactMarkdown>
                     </div>
                 }
+
+                {
+                    prevChats.length > 0 && latestReply === null &&
+                    <div className='gptDiv' key={"non-typing"}>
+                        <ReactMarkdown rehypePlugins={[rehypeHighlight]}>{prevChats[prevChats.length-1].content}</ReactMarkdown>
+                    </div>
+                } */}
                 
             </div>
         </>
